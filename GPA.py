@@ -50,6 +50,8 @@ def loadFromJson(path:str) -> dict:
     return B1
 
 def isValidMark(mark:float) -> bool:
+    if mark == "none":
+        return True
     try:
         mark = float(mark)
     except:
@@ -69,10 +71,10 @@ def createDataSet(year:int) -> dict:
     markDict = loadFromJson(join(getPath(),f'tempB{year}.json'))
     for key in markDict.keys():
         mark = input(f'{key}: ')
-        if mark == 'none':
-            continue
         while not isValidMark(mark):
             mark = input(f'reinput {key}, invalid value: ')
+        if mark == 'none':
+            continue
         markDict.get(key).append(float(mark))
     return markDict
 
